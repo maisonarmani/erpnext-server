@@ -113,6 +113,27 @@ frappe.ui.form.on("Production Order", {
 				})
 			})
 		}
+
+		// User defined
+		if((!['Resolved','Not Started'].includes(frm.doc.status)) && frm.doc.docstatus == 1){
+			// Are you a financial controller
+			if(frappe.user_roles.includes("Finance Director")){
+				frm.add_custom_button(__('Resolve'), function(){
+					frappe.confirm("Are you sure you want to resolve this production order?", function(){
+						frappe.call({
+							method: "tools_box.controllers.api.resolve_production_order",
+							args: {
+								doctype: cur_frm.doctype,
+								docname: cur_frm.docname
+							},
+							callback:function (message) {
+								cur_frm.reload_doc()
+							}
+						})
+					})
+				}, __("Status"))
+			}
+		}
 	},
 	
 	show_progress: function(frm) {

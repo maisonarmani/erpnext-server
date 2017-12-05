@@ -126,6 +126,12 @@ erpnext.selling.SalesOrderController = erpnext.selling.SellingController.extend(
 						function() { me.make_payment_entry() }, __("Make"));
 				}
 
+				// authority to load
+				if(!doc.alt && allow_delivery && this.frm.has_perm("submit")) {
+					cur_frm.add_custom_button(__('Authority to Load'), this.make_authority_to_load, __("Make"));
+				}
+
+
 				// maintenance
 				if(flt(doc.per_delivered, 2) < 100 &&
 						["Sales", "Shopping Cart"].indexOf(doc.order_type)===-1) {
@@ -255,6 +261,12 @@ erpnext.selling.SalesOrderController = erpnext.selling.SellingController.extend(
 		});
 	},
 
+	make_authority_to_load: function() {
+		frappe.model.open_mapped_doc({
+			method: "tools_box._selling.doctype.authority_to_load.authority_to_load.make_authority_to_load",
+			frm: cur_frm
+		})
+	},
 	order_type: function() {
 		this.frm.fields_dict.items.grid.toggle_reqd("delivery_date", this.frm.doc.order_type == "Sales");
 	},

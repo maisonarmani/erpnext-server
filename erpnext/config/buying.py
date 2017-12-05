@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from frappe import _
+from tools_box.controllers.setup import  get_extra_purchase_reports, get_purchasing_section
 
 def get_data():
 	return [
@@ -55,6 +56,7 @@ def get_data():
 
 			]
 		},
+		get_purchasing_section(),	
 		{
 			"label": _("Setup"),
 			"icon": "fa fa-cog",
@@ -167,6 +169,8 @@ def get_data():
 
 			]
 		},
+
+		get_extra_purchase_reports(),
 		{
 			"label": _("Other Reports"),
 			"icon": "fa fa-list",

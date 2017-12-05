@@ -451,6 +451,34 @@ def make_project(source_name, target_doc=None):
 
 	return doc
 
+
+@frappe.whitelist()
+def make_authority_to_load(source_name, target_doc=None):
+		def set_missing_values(source, target):
+			target.sales_order = source.name
+
+		def update_item(source_doc, target_doc, source_parent):
+			pass
+
+		doc = get_mapped_doc("Sales Order", source_name, {
+			"Sales Order": {
+				"doctype": "Authority to Load",
+				"validation": {
+					"docstatus": ["=", 1]
+				},
+				"field_map": {
+					"sales_order":"name"
+				},
+				"add_if_empty": False,
+				"postprocess": update_item,
+				"condition": lambda doc: doc.docstatus == 1
+			},
+		}, target_doc, set_missing_values)
+
+		return doc
+
+
+
 @frappe.whitelist()
 def make_delivery_note(source_name, target_doc=None):
 	def set_missing_values(source, target):

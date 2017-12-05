@@ -1,5 +1,7 @@
 from frappe import _
 
+from tools_box.controllers.setup import get_maintenance_section, get_extra_maintenance_reports
+
 def get_data():
 	return [
 		{
@@ -28,5 +30,7 @@ def get_data():
 					"description": _("Warranty Claim against Serial No."),
 				},
 			]
-		}
+		},
+		get_maintenance_section(),
+		get_extra_maintenance_reports()
 	]

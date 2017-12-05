@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 from frappe import _
 
+from tools_box.controllers.setup import get_extra_hr_reports, get_hr_section
+
 def get_data():
 	return [
 		{
@@ -243,6 +245,9 @@ def get_data():
 				},
 			]
 		},
+
+		get_hr_section(),
+		get_extra_hr_reports(),
 		{
 			"label": _("Reports"),
 			"icon": "fa fa-list",

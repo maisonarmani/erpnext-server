@@ -4,7 +4,7 @@
 frappe.ui.form.on("Vehicle Log", {
 	refresh: function(frm,cdt,cdn) {
 		var vehicle_log=frappe.model.get_doc(cdt,cdn);
-		if (vehicle_log.license_plate) {
+		if (vehicle_log.license_plate && false) {
 			frappe.call({
 				method: "erpnext.hr.doctype.vehicle_log.vehicle_log.get_make_model",
 				args: {

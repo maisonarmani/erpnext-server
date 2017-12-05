@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from frappe import _
+from tools_box.controllers.setup import get_extra_account_reports, get_account_section
 
 def get_data():
 	return [
@@ -266,6 +267,7 @@ def get_data():
 				},
 			]
 		},
+		get_account_section(),
 		{
 			"label": _("Tools"),
 			"items": [
@@ -398,6 +400,7 @@ def get_data():
 				},
 			]
 		},
+		get_extra_account_reports(),
 		{
 			"label": _("Other Reports"),
 			"icon": "fa fa-table",
